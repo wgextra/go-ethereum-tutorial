@@ -11,23 +11,22 @@ import (
 )
 
 func main() {
-    bytes,err := ioutil.ReadFile("config.json")
-    if err != nil{
+    bytes, err := ioutil.ReadFile("config.json")
+    if err != nil {
         log.Fatalf("File Error!", err)
     }
 
     var config Config
-    if err := json.Unmarshal(bytes,&config);err != nil{
+    if err := json.Unmarshal(bytes, &config); err != nil {
         log.Fatalf("Json Error!", err)
     }
-    conn, err := ethclient.Dial(fmt.Sprintf("https://mainnet.infura.io/%s",config.InfuraId))
+    conn, err := ethclient.Dial(fmt.Sprintf("https://%s.infura.io/%s", config.Network, config.InfuraId))
     if err != nil {
         log.Fatalf("Dial Error!", err)
     }
     ctx := context.Background()
-    tx,pending,err := conn.TransactionByHash(ctx,common.HexToHash(config.ContractHash))
-    if(!pending){
+    tx, pending, err := conn.TransactionByHash(ctx, common.HexToHash(config.ContractHash))
+    if (!pending) {
         fmt.Println(tx)
     }
 }
-
