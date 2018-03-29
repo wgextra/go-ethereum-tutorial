@@ -10,11 +10,6 @@ import (
     "encoding/json"
 )
 
-type Config struct{
-    InfuraId    string `json:"infuraId"`
-    ContractHash    string `json:"contractHash"`
-}
-
 func main() {
     bytes,err := ioutil.ReadFile("config.json")
     if err != nil{
